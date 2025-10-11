@@ -1,0 +1,4 @@
+Juan Lobo,50
+Pedro Lopez, 70
+Antonia Pochuta, 80
+Lucas Monterey, 100
