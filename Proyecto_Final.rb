@@ -26,8 +26,24 @@ rescue => e
   puts "Error al leer archivo TXT:"
 end
 
+#Metodo para guardar
+def guardar_datos(estudiantes)
+  File.open(FILE_NAME, 'w') do |file|
+    estudiantes.each do |id, info|
+      notas = info[:notas]
+      if notas.nil? || notas.empty?
+        file.puts "ID: #{id} | Nombre: #{info[:nombre]} | Notas: (sin notas)"
+      else
+        notas_texto = notas.map { |n| format('%.2f', n) }.join(', ')
+        file.puts "ID: #{id} | Nombre: #{info[:nombre]} | Notas: #{notas_texto}"
+      end
+    end
+  end
+rescue => e
+  puts "Error al guardar archivo TXT"
+end
 
-
+#Mostrar menu principal
 def mostrar_menu
 puts
 puts "===== SISTEMA DE GESTIÓN DE ALUMNOS ====="
