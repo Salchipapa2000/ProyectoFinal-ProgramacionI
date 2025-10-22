@@ -1,4 +1,33 @@
+FILE_NAME = 'estudiantes.txt'
+
 estudiantes = {}
+
+#Para poder cargar los datos en txt
+def cargar_datos(estudiantes)
+  return unless File.exist?(FILE_NAME)
+
+File.readlines(FILE_NAME, chomp: true).each do |linea|
+  next if linea.strip.empty?
+
+#Deberia verse asi: "ID: 1 | Nombre: Franco Sanchez | Notas: 90.5, 80.0, 100.0"
+if linea =~ /^ID:\s*(\d+)\s*\|\s*Nombre:\s*(.*?)\s*\|\s*Notas:\s*(.*)$/
+  id = $1.to_i
+  nombre = $2.strip
+  notas_texto = $3.strip
+  notas = if notas_texto == "(sin notas)"
+        []
+      else
+        notas_texto.split(',').map {|n| n.strip.to_f }
+      end
+    estudiantes[id] = { nombre: nombre, notas: notas }
+  end
+end
+rescue => e
+  puts "Error al leer archivo TXT:"
+end
+
+
+
 def mostrar_menu
 puts
 puts "===== SISTEMA DE GESTIÓN DE ALUMNOS ====="
