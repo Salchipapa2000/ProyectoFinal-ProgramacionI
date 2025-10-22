@@ -108,10 +108,32 @@ puts "Notas registradas: #{notas.map { |n| format ('%.2f', n) }.join(', ')}"
 end
 
 #Método para calcular promedio ---------------
+def calcular_promedio(estudiantes)
+  return nil if notas.empty?
+  notas.sum / notas.size.to_f
+end
+#Método para consultar el promedio
 def consultar_promedio(estudiantes)
-  puts "[Consultar promedio] = pendiente implementación"
+  print "Ingrese ID del estudiante: "
+  id = Integer(gets.chomp) rescue nil
+  unless id && estudiantes.key?(id)
+    puts "No existe un estudiante con ese ID."
+    return
+  end
+  info = estudiantes[id]
+  puts "Nombre: #{info[:nombre]}"
+  notas = info[:notas]
+  if notas.empty?
+    puts "No hay notas registradas."
+  else
+    promedio = calcular_promedio(notas)
+    puts "Notas: #{notas.map [ |n| format ('%.2f', n)].join(',')}"
+    puts "Promedio: #{format('%.2f', promedio)}"
+  end
 end
 
+
+#Método para listar a todos los estudiantes -------------
 def listar_estudiantes(estudiantes)
   puts "[Guardar y salir] = pendiente implementación"
 end
