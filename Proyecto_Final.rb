@@ -1,7 +1,6 @@
-estudiantes = []
-notas = []
-def opcion = gets.chomp
-
+estudiantes = {}
+def mostrar_menu
+puts
 puts "===== SISTEMA DE GESTIÓN DE ALUMNOS ====="
 
 puts "1. Registrar estudiante"
@@ -10,28 +9,58 @@ puts "3. Consultar promedio por estudiante"
 puts "4. Listar todos los estudiantes"
 puts "5. Guardar y salir"
 puts "Seleccione una opción:"
-cOpc = gets
+end
 
+#Métodos en esqueleto
+def registrar_estudiante(estudiantes)
+  puts "[Registrar estudante] = pendiente implementación"
+end
 
-if opcion = 1
-estudiante.times do
-estudiante = gets.chomp.to_f
-estudiantes.push (nombre)
+def ingresar_notas(estudiantes)
+  puts "[Ingresar notas] = pendiente implementación"
+end
 
-elsif opcion = 2
-nota = gets.chomp.to_i
-notas.push (nota)
+def consultar_promedio(estudiantes)
+  puts "[Consultar promedio] = pendiente implementación"
+end
 
-elsif opcion = 3
-def promedio (a, b)
-  return a * b / 4
+def listar_estudiantes(estudiantes)
+  puts "[Guardar y salir] = pendiente implementación"
+end
 
-elsif opcion = 4
-puts studiantes.sort
+def guardar_y_salir(estudiantes)
+  puts "[Guardar y salir] = pendiente implementación"
+end
 
-elsif opcion = 5
-save
+#Bucle principal del menú
+loop do
+  mostrar_menu
+  input = gets.chomp
 
+#Validación básica, revisa que sea entero positivo
+if input =~ /^\s*\d+\s*$/
+  opcion = input.to_i
 else
-  puts "Número inválido"
+  puts "Entrada inválida: ingresa el número de la opción."
+  next
+end
+
+case opcion
+
+when 1
+  registra_estudiante(estudiantes)
+when 2
+    ingresar_notas(estudiantes)
+when 3
+    consultar_promedio(estudiantes)
+when 4
+    listar_estudiantes(estudiantes)
+when 5
+  guardar_y_salir(estudiantes)
+  puts "Saliendo... ¡Hasta luego!"
+  break
+else
+    puts "Opción inválida. Elige entre 1 y 5."
+  end
+end
 
