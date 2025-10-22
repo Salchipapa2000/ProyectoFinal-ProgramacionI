@@ -150,42 +150,36 @@ end
 
 #Inicio de la función principal ----------------------
 
-#Pendiente
-
+cargar_datos(estudiantes)
 
 def guardar_y_salir(estudiantes)
   puts "[Guardar y salir] = pendiente implementación"
 end
 
 #Bucle principal del menú
+puts "Datos cargados desde #{FILE_NAME}." if File.exist?(FILE_NAME)
+
 loop do
   mostrar_menu
-  input = gets.chomp
+  opcion = gets.chomp.to_i
+  
+  case opcion
 
-#Validación básica, revisa que sea entero positivo
-if input =~ /^\s*\d+\s*$/
-  opcion = input.to_i
-else
-  puts "Entrada inválida: ingresa el número de la opción."
-  next
-end
-
-case opcion
-
-when 1
-  registra_estudiante(estudiantes)
-when 2
-    ingresar_notas(estudiantes)
-when 3
-    consultar_promedio(estudiantes)
-when 4
-    listar_estudiantes(estudiantes)
-when 5
+  when 1
+    registra_estudiante(estudiantes)
+  when 2
+      ingresar_notas(estudiantes)
+  when 3
+      consultar_promedio(estudiantes)
+  when 4
+      listar_estudiantes(estudiantes)
+  when 5
   guardar_y_salir(estudiantes)
+  puts "Datos guardados en #{FILE_NAME}"
   puts "Saliendo... ¡Hasta luego!"
   break
 else
-    puts "Opción inválida. Elige entre 1 y 5."
+    puts "Opción inválida. Intentelo nuevamente Elige entre 1 y 5."
   end
 end
 
