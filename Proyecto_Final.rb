@@ -81,9 +81,33 @@ end
 
 #Método para ingresar notas ------
 def ingresar_notas(estudiantes)
-  puts "[Ingresar notas] = pendiente implementación"
+  print "Ingrese ID del estudiante: "
+  id = Integer(gets.chomp) rescue nil
+  unless id && estudiantes.key?(id)
+    puts "No existe un estudiante con ese ID."
+    return
+end
+nombre = estudiantes[id][:nombre]
+puts "Ingresando notas para #{nombre}:"
+notas = []
+3.times do |i|
+  loop do
+    print "Nota #{i + 1} (0.00 - 100.00):"
+    input = gets.chomp
+    nota = Float (input) rescue nil
+    if nota && nota >= 0.0 && nota <= 100.0
+      notas << nota
+      break
+    else
+      puts "Por favor, ingrese un número entre 0.00 y 100.00"
+    end
+  end
+end
+estudiantes[id][:notas] = notas
+puts "Notas registradas: #{notas.map { |n| format ('%.2f', n) }.join(', ')}"
 end
 
+#Método para calcular promedio ---------------
 def consultar_promedio(estudiantes)
   puts "[Consultar promedio] = pendiente implementación"
 end
