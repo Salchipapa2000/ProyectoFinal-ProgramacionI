@@ -2,7 +2,7 @@ FILE_NAME = 'estudiantes.txt'
 
 estudiantes = {}
 
-#Para poder cargar los datos en txt
+#Definimos para poder cargar los datos en txt ---------
 def cargar_datos(estudiantes)
   return unless File.exist?(FILE_NAME)
 
@@ -26,7 +26,7 @@ rescue => e
   puts "Error al leer archivo TXT:"
 end
 
-#Metodo para guardar
+#Método para guardar --------------
 def guardar_datos(estudiantes)
   File.open(FILE_NAME, 'w') do |file|
     estudiantes.each do |id, info|
@@ -43,7 +43,7 @@ rescue => e
   puts "Error al guardar archivo TXT"
 end
 
-#Mostrar menu principal
+#Mostrar menu principal --------------
 def mostrar_menu
 puts
 puts "===== SISTEMA DE GESTIÓN DE ALUMNOS ====="
@@ -56,11 +56,30 @@ puts "5. Guardar y salir"
 puts "Seleccione una opción:"
 end
 
-#Métodos en esqueleto
+#Método registro de estudiantes ---------------
 def registrar_estudiante(estudiantes)
-  puts "[Registrar estudante] = pendiente implementación"
+  print "Ingrese ID (entero positivo): "
+  input = gets.chomp
+  id = integer (input) rescue nil
+  if id.nil? || id <= 0
+    puts "ID inválido. Debe ser un número entero positivo."
+    return
+  end
+  if esudiantes.key?(id)
+    puts "Ya existe un estudiante con ese ID."
+    return
+  end
+  print "Ingrese nombre completo: "
+  nombre = gets.chomp.strip
+  if nombre.empty?
+    puts "El nombre no puede estar vacío"
+    return
+  end
+  estudiantes[id] = { nombre: nombre, notas: [] }
+  puts "Estudiante '#{nombre}' registrado con ID #{id}."
 end
 
+#Método para ingresar notas ------
 def ingresar_notas(estudiantes)
   puts "[Ingresar notas] = pendiente implementación"
 end
