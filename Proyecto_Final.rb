@@ -135,8 +135,23 @@ end
 
 #Método para listar a todos los estudiantes -------------
 def listar_estudiantes(estudiantes)
-  puts "[Guardar y salir] = pendiente implementación"
+  if estudiantes.empty?
+    puts "No hay estudiantes registrados."
+    return
+  end
+  puts "ID | Nombre | Promedio"
+  puts "-------------------------------"
+  estudiantes.sort.each do |id, info|
+    prom = calcular_promedio(info[:notas])
+    prom_texto = prom ? format('%2f', prom) : "N/A"
+    puts "#{id} | #{info[:nomre]} | #{prom_texto}"
+  end
 end
+
+#Inicio de la función principal ----------------------
+
+#Pendiente
+
 
 def guardar_y_salir(estudiantes)
   puts "[Guardar y salir] = pendiente implementación"
