@@ -11,6 +11,18 @@ File.readlines(Registro_estudiantes, chomp: true).each do |linea| #En el documen
 
 #Deberia verse asi: "ID: 1 | Nombre: Franco Sanchez | Notas: 90.5, 80.0, 100.0"
 if linea =~ /^ID:\s*(\d+)\s*\|\s*Nombre:\s*(.*?)\s*\|\s*Notas:\s*(.*)$/
+#^ "Empieza con"
+#\s* "Espacios o tabulaciones"
+#(\d+) "\d = digito (0-9)" "+ = uno o mas"
+#\s*\|\s* "Busca el simbolo | que usamos como separador, y permite espacioes antes o despues"
+# Nombre:\s*(.*?)\s*\|  "Patron del nombre"
+  #Nombre: literalmente busca ese texto.
+  #\s* permite espacios después de los dos puntos.
+  #(.*?) guarda cualquier texto, pero el ? hace que se detenga en el primer | que encuentre después (es una forma de decir “sé moderado”).
+#Notas:\s*(.*)$ "Busca la parte de las notas hasta el final de la linea"
+  #.* = “cualquier cosa (cualquier cantidad de caracteres)”.
+  #$ = fin de la línea.
+
   id = $1.to_i #Definimos cada objeto, eliminando espacios y definiendo interger para números.
   nombre = $2.strip
   notas_texto = $3.strip
@@ -25,7 +37,11 @@ end
 rescue => e
   puts "Error al leer archivo TXT:"
 end
-
+#---------------------------------------------------
+def daraviso(texto)
+    puts texto
+    x = gets
+end
 #-----------------Método para guardar --------------
 def guardar_datos(estudiantes) #Definimos
   File.open(Registro_estudiantes, 'w') do |file| 
@@ -43,26 +59,16 @@ rescue => e
   puts "Error al guardar archivo TXT"
 end
 
-#------------------Mostrar menu principal --------------
-def mostrar_menu
-puts
-puts "===== SISTEMA DE GESTIÓN DE ALUMNOS ====="
 
-puts "1. Registrar estudiante"
-puts "2. Ingresar notas"
-puts "3. Consultar promedio por estudiante"
-puts "4. Listar todos los estudiantes"
-puts "5. Guardar y salir"
-puts "Seleccione una opción:"
-end
 
 #--------------------Método registro de estudiantes ---------------
 def registrar_estudiante(estudiantes)
+  system("CLS")
   print "Ingrese ID (entero positivo): "
   input = gets.chomp #Listo para recibir el dato
-  id = integer (input) rescue nil #Rescue para evtar bloqueos.
+  id = input.to_i  #cambiarla cadena a entero
   if id.nil? || id <= 0 #Verificamos si está vacío o es menor a 0
-    puts "ID inválido. Debe ser un número entero positivo."
+    daraviso( "ID inválido. Debe ser un número entero positivo." )
     return
   end
   if esudiantes.key?(id) #Verificamos que no hayan iguales 
@@ -104,7 +110,7 @@ notas = []
   end
 end
 estudiantes[id][:notas] = notas
-puts "Notas registradas: #{notas.map { |n| format ('%.2f', n) }.join(', ')}" #El %2f.n es para poner 2 decimales.
+puts "Notas registradas: #{notas.map { |n| format('%.2f', n) }.join(', ')}" #El %2f.n es para poner 2 decimales.
 end
 
 #-------------------Método para calcular promedio ---------------
@@ -127,7 +133,7 @@ def consultar_promedio(estudiantes)
     puts "No hay notas registradas."
   else
     promedio = calcular_promedio(notas)
-    puts "Notas: #{notas.map [ |n| format ('%.2f', n)].join(',')}"
+    puts "Notas: #{notas.map { |n| format('%.2f', n) }.join(', ')}"
     puts "Promedio: #{format('%.2f', promedio)}"
   end
 end
@@ -148,7 +154,18 @@ def listar_estudiantes(estudiantes)
   end
 end
 
+#------------------Mostrar menu principal --------------
+def mostrar_menu
+puts
+puts "===== SISTEMA DE GESTIÓN DE ALUMNOS ====="
 
+puts "1. Registrar estudiante"
+puts "2. Ingresar notas"
+puts "3. Consultar promedio por estudiante"
+puts "4. Listar todos los estudiantes"
+puts "5. Guardar y salir"
+puts "Seleccione una opción:"
+end
 #*---------------Inicio de la función principal ----------------------
 
 cargar_datos(estudiantes)
@@ -156,26 +173,26 @@ cargar_datos(estudiantes)
 puts "Datos cargados desde #{Registro_estudiantes}." if File.exist?(Registro_estudiantes)
 
 loop do #Loop es para el bucle.
-  mostrar_menu
-  opcion = gets.chomp.to_i
+    system("CLS")
+    mostrar_menu
+    opcion = gets.chomp.to_i
   
-  case opcion
-
-  when 1
-    registra_estudiante(estudiantes)
-  when 2
-      ingresar_notas(estudiantes)
-  when 3
-      consultar_promedio(estudiantes)
-  when 4
-      listar_estudiantes(estudiantes)
-  when 5
-  guardar_y_salir(estudiantes)
-  puts "Datos guardados en #{Registro_estudiantes}"
-  puts "Saliendo... ¡Hasta luego!"
-  break
-else
-    puts "Opción inválida. Intentelo nuevamente Elige entre 1 y 5."
-  end
+    case opcion
+    when 1
+        registrar_estudiante(estudiantes)
+    when 2
+        ingresar_notas(estudiantes)
+    when 3
+        consultar_promedio(estudiantes)
+    when 4
+        listar_estudiantes(estudiantes)
+    when 5
+        guardar_y_salir(estudiantes)
+        puts "Datos guardados en #{Registro_estudiantes}"
+        puts "Saliendo... ¡Hasta luego!"
+        break
+    else
+        puts "Opción inválida. Intentelo nuevamente Elige entre 1 y 5."
+    end
 end
 
