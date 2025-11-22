@@ -1,0 +1,5 @@
+ID: 20251 | nombre:   Cecilion Xavier   | notas: 100.00, 99.00, 98.00
+ID: 20252 | nombre:   Julian Culian   | notas: 50.00, 45.00, 61.00
+ID: 20253 | nombre:   Marqués Duque   | notas: 75.00, 80.00, 63.00
+ID: 20254 | nombre:  Vale Valir  | notas: 65.00, 78.00, 98.00
+ID: 20255 | nombre: Lucas Peroza | notas: 50.00, 15.00, 25.00
